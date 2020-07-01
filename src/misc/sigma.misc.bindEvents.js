@@ -172,7 +172,7 @@
           // edges.
           // Then, let's check if the mouse is on the edge (we suppose that it
           // is a line segment).
-
+          var count = edge.count || 0;
           if (
             !edge.hidden &&
             !source.hidden && !target.hidden &&
@@ -194,7 +194,8 @@
                 cp = sigma.utils.getSelfLoopControlPoints(
                   source[prefix + 'x'],
                   source[prefix + 'y'],
-                  source[prefix + 'size']
+                  source[prefix + 'size'],
+                  count
                 );
                 if (
                   sigma.utils.isPointOnBezierCurve(
@@ -218,7 +219,8 @@
                   source[prefix + 'x'],
                   source[prefix + 'y'],
                   target[prefix + 'x'],
-                  target[prefix + 'y']);
+                  target[prefix + 'y'],
+                  count);
                 if (
                   sigma.utils.isPointOnQuadraticCurve(
                   modifiedX,

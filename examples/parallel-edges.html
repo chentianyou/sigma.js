@@ -55,6 +55,10 @@
 <script src="../plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
 <script src="../plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
 <script src="../plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
+<script src="../src/misc/sigma.misc.animation.js"></script>
+<script src="../src/misc/sigma.misc.bindEvents.js"></script>
+<script src="../src/misc/sigma.misc.bindDOMEvents.js"></script>
+<script src="../src/misc/sigma.misc.drawHovers.js"></script>
 <div id="container">
   <style>
     #graph-container {
@@ -102,7 +106,7 @@ for (i = 0; i < E; i++)
     size: 1,
     color: '#ccc',
     type: 'curvedArrow',
-    count: i
+    count: i*4
   });
 
 for (i = 0; i < L; i++)
@@ -114,7 +118,7 @@ for (i = 0; i < L; i++)
     size: 1,
     color: '#ccc',
     type: 'curvedArrow',
-    count: i
+    count: i*4
   });
 
 // Instantiate sigma:
@@ -123,6 +127,28 @@ s = new sigma({
   renderer: {
     container: document.getElementById('graph-container'),
     type: 'canvas'
+  },
+  settings: {
+    doubleClickEnabled: false,
+    enableEdgeHovering: true,
+    edgeHoverColor: 'edge',
+    defaultEdgeHoverColor: '#000',
+    edgeHoverSizeRatio: 2,
+    edgeHoverExtremities: true,
   }
+});
+
+// Bind the events:
+s.bind('overNode outNode clickNode doubleClickNode rightClickNode', function(e) {
+  console.log(e.type, e.data.node.label, e.data.captor);
+});
+s.bind('overEdge outEdge clickEdge doubleClickEdge rightClickEdge', function(e) {
+  console.log(e.type, e.data.edge, e.data.captor);
+});
+s.bind('clickStage', function(e) {
+  console.log(e.type, e.data.captor);
+});
+s.bind('doubleClickStage rightClickStage', function(e) {
+  console.log(e.type, e.data.captor);
 });
 </script>
