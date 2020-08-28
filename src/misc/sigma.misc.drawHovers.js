@@ -170,6 +170,10 @@
           hoveredEdge = hoveredEdges[k];
           source = self.graph.nodes(hoveredEdge.source);
           target = self.graph.nodes(hoveredEdge.target);
+          if (source === undefined || target === undefined) {
+            delete hoveredEdges[k];
+            continue;
+          }
 
           if (!hoveredEdge.hidden) {
             (
